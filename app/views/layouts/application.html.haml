@@ -8,4 +8,24 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    %header
+      .container
+        .row.justify-content-center
+          .col-md-4
+            = link_to(:root) do
+              %h1= 'RubyFlow'
+          .col-md-4
+            %ul
+              %li
+                = link_to('#') do
+                  = fa_icon "plus"
+                  = "Submit"
+              %li
+                = link_to('#') do
+                  = fa_icon "twitter"
+                  = "Twitter"
+              %li
+                = link_to('#') do
+                  = fa_icon "rss"
+                  = "RSS"
     = yield
