@@ -14,4 +14,18 @@ describe PostsController do
       expect(Post).to have_received(:all).once
     end
   end
+
+  describe 'GET #show' do
+    it 'assigns post' do
+      post = instance_double(Post, id: 1)
+      allow(Post).to receive(:find).with(post.id.to_s).and_return(post)
+
+      get :show, params: { id: post.id }
+
+      expect(assigns(:post)).to eq(post)
+      expect(Post).to have_received(:find).with(post.id.to_s).once
+      expect(response).to render_template(:show)
+      expect(response.code).to eq('200')
+    end
+  end
 end

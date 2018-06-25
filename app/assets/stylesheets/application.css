@@ -65,3 +65,53 @@ header li a:hover {
 header i {
   padding-right: 4px;
 }
+div#posts h2 {
+  font-size: 1.4em;
+  line-height: 1.2em;
+  font-family: "proxima-nova", ubuntu, "helvetica neue", helvetica, sans-serif;
+}
+
+div#posts a {
+  text-decoration: none;
+  color: #222;
+}
+div#posts a:hover {
+  text-decoration: underline;
+  color: #c00;
+}
+
+div#post h1 {
+  background-color: inherit;
+  display: block;
+  font-size: 2em;
+  line-height: 1.3em;
+  margin-left: -1px;
+  color: rgb(34, 34, 34);
+  font-weight: bold;
+  margin-top: 0.2em;
+  padding: 0px;
+  font-family: proxima-nova, ubuntu, "helvetica neue", helvetica, sans-serif;
+  orphans: 3;
+}
+div#post p {
+  font-size: 1.1em;
+  line-height: 1.4em;
+  margin: 1em 0px 2em;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-family: proxima-nova, ubuntu, "helvetica neue", helvetica, sans-serif, "Droid Sans Mono", Cousinex, "Liberation Monox", "Source Code Prox", "Input Monox", Menlo, Consolas, "Ubuntu Mono", monospace;
+  color: rgb(66, 66, 66);
+}
+
+div#post span.meta {
+  color: rgb(187, 187, 187);
+  font-size: 0.9em;
+  line-height: 1.5em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+div#post span.meta span {
+  color: rgb(102, 102, 102);
+}

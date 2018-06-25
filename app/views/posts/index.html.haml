@@ -1,7 +1,7 @@
 .container
   .row.justify-content-center
-    .col-md-8
+    .col-md-8#posts
       - @posts.each do |post|
         %p
-          %h2= post.title
+          %h2= link_to(post.title, post)
           %p= post.content

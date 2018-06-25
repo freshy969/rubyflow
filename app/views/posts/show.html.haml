@@ -1,0 +1,10 @@
+.container
+  .row.justify-content-center
+    .col-md-8#post
+      %h1= @post.title
+      %span.meta
+        BY 
+        %span= 'John Doe' 
+        —
+        = @post.created_at
+      %p= @post.content
