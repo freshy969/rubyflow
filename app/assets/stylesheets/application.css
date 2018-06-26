@@ -115,3 +115,22 @@ div#post span.meta {
 div#post span.meta span {
   color: rgb(102, 102, 102);
 }
+.post-day {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background-color: #eee;
+  text-align: left;
+}
+.post-day h3 {
+  color: #999;
+  font-size: 1.0em;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding-top: 10px;
+}
+.post-day i {
+  padding-right: 5px;
+}
+div#posts {
+  margin-top: 20px;
+}

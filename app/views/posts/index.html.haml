@@ -1,7 +1,12 @@
 .container
-  .row.justify-content-center
-    .col-md-8#posts
-      - @posts.each do |post|
-        %p
-          %h2= link_to(post.title, post)
-          %p= post.content
+  .row.justify-content-center#posts
+    - @posts.each do |day, posts|
+      .col-md-8.post-day
+        %h3
+          = fa_icon "calendar"
+          = day
+      - posts.each do |post|
+        .col-md-8
+          %p
+            %h2= link_to(post.title, post)
+            %p= post.content
