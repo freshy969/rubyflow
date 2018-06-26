@@ -4,4 +4,8 @@ class PostDecorator < Draper::Decorator
   def created_at
     ::Posts::DateManipulationService.call(model.created_at)
   end
+
+  def content
+    ::Posts::MarkdownParserService.call(model.content)
+  end
 end
