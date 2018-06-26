@@ -47,3 +47,4 @@ gem 'will_paginate-bootstrap4'
 gem "font-awesome-rails"
 gem "draper"
 gem "redcarpet"
+gem "devise"
