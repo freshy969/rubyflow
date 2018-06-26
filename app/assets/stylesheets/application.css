@@ -134,3 +134,8 @@ div#post span.meta span {
 div#posts {
   margin-top: 20px;
 }
+
+div#posts p a, #post a {
+  color: #c00;
+  text-decoration: underline;
+}
