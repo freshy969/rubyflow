@@ -7,4 +7,4 @@
         %span= 'John Doe' 
         —
         = @post.created_at
-      %p= @post.content
+      %p= sanitize_post_content(@post.content)

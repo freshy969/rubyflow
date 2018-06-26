@@ -9,4 +9,4 @@
         .col-md-8
           %p
             %h2= link_to(post.title, post)
-            %p= post.content
+            %p= sanitize(post.content, tags: %w(strong p a i em), attributes: %w(href target))
