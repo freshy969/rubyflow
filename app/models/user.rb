@@ -1,4 +1,3 @@
 class User < ApplicationRecord
-  devise :database_authenticatable, :validatable, 
-         :omniauthable, omniauth_providers: %i[github]
+  devise :database_authenticatable, :omniauthable, omniauth_providers: %i[github]
 end
