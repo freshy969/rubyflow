@@ -29,7 +29,7 @@ Devise.setup do |config|
   # config.parent_mailer = 'ActionMailer::Base'
 
   config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET']
-
+  
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
