@@ -16,7 +16,8 @@ describe Users::OmniauthService do
     it 'creates new user if user is not found by the given provider and UID' do
       provider = 'github'
       uid = 'abcd123'
-      auth = double(provider: provider, uid: uid)
+      auth_info = double(name: 'John Doe', image: 'url', urls: {'GitHub' => 'https://github.com/rubyhero'})
+      auth = double(provider: provider, uid: uid, info: auth_info)
 
       result = described_class.call(auth)
 
