@@ -1,6 +1,30 @@
 require 'rails_helper'
 
 describe PostsController do
+  describe 'GET #new' do
+    it 'redirects to the root page if user is not signed in' do
+      get :new
+
+      expect(response).to redirect_to('/')
+    end
+
+    it 'shows post creation form if user is signed in' do
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      user = create(:user, 
+        provider: 'github', uid: '123', name: 'John Doe', image_url: 'url', profile_url: 'url'
+      )
+      post = instance_double(Post)
+      allow(Post).to receive(:new).and_return(post)
+      sign_in(user)
+
+      get :new
+
+      expect(assigns(:post)).to eq(post)
+      expect(response).to render_template(:new)
+      expect(response.code).to eq('200')
+    end
+  end
+
   describe 'GET #index' do
     it 'assigns posts' do
       post = instance_double(Post)
