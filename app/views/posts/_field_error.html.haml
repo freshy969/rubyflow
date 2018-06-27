@@ -1,0 +1,5 @@
+- if post.errors[attribute_name].present?
+  .invalid-feedback{style: 'display:block;'}
+    - post.errors.full_messages_for(attribute_name).each do |error|
+      = error
+      %br/

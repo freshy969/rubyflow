@@ -9,18 +9,10 @@
           .col-md-11
             .form-group
               = f.text_field :title, class: post_input_class(@post, :title), placeholder: 'Title'
-              - if @post.errors[:title].present?
-                .invalid-feedback{style: 'display:block;'}
-                  - @post.errors.full_messages_for(:title).each do |error|
-                    = error
-                    %br/
+              = render "field_error", post: @post, attribute_name: :title
             .form-group
               = f.text_area :content, class: post_input_class(@post, :content), style: 'min-height: 200px;', placeholder: 'Type your content here, including links. At least, explain the content around your link in a single paragraph.'
-              - if @post.errors[:content].present?
-                .invalid-feedback{style: 'display:block;'}
-                  - @post.errors.full_messages_for(:content).each do |error|
-                    = error
-                    %br/
+              = render "field_error", post: @post, attribute_name: :content
             %small.form-text.text-muted
               = 'You can use Markdown.'
               %br/
