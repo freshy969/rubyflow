@@ -1,0 +1,18 @@
+.container
+  .row.justify-content-center
+    .col-md-8
+      = form_for(@post) do |f|
+        %h2= 'Submit a post'
+        .row
+          .col-md-1
+            = image_tag(current_user.image_url)
+          .col-md-11
+            .form-group
+              = f.text_field :title, class: 'form-control', placeholder: 'Title'
+            .form-group
+              = f.text_area :content, class: 'form-control', style: 'min-height: 200px;', placeholder: 'Type your content here, including links. At least, explain the content around your link in a single paragraph.'
+            %small.form-text.text-muted
+              = 'You can use Markdown.'
+              %br/
+              = 'Note that your post may be edited to suit the format of the site.'
+            = f.submit 'Save', class: 'btn'

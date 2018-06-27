@@ -139,3 +139,43 @@ div#posts p a, #post a {
   color: #c00;
   text-decoration: underline;
 }
+form#new_post {
+  background-color: #eee;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border: 1px solid #ccc;
+  padding-left: 1.2em;
+  padding-right: 1.2em;
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+form#new_post h2 {
+  font-size: 1.5em;
+  line-height: 1.4em;
+  color: #424242;
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+form#new_post input[type='submit'] {
+  cursor: pointer;
+  padding: 2px 24px;
+  font-size: 1.3em;
+  font-family: "proxima-nova", ubuntu, "helvetica neue", helvetica, sans-serif, "Droid Sans Mono", "Cousinex", "Liberation Monox", "Source Code Prox", "Input Monox", Menlo, Consolas, "Ubuntu Mono", monospace;
+  line-height: 1.4em;
+  font-weight: normal;
+  background-color: #c00;
+  color: #fff;
+  border: 0;
+  border-radius: 12px;
+  margin-bottom: 8px;
+  float: right;
+}
+form#new_post img {
+  float: left;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 0px solid transparent;
+  margin-top: 8px;
+  background-size: cover;
+}
