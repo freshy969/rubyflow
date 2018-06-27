@@ -8,9 +8,19 @@
             = image_tag(current_user.image_url)
           .col-md-11
             .form-group
-              = f.text_field :title, class: 'form-control', placeholder: 'Title'
+              = f.text_field :title, class: post_input_class(@post, :title), placeholder: 'Title'
+              - if @post.errors[:title].present?
+                .invalid-feedback{style: 'display:block;'}
+                  - @post.errors.full_messages_for(:title).each do |error|
+                    = error
+                    %br/
             .form-group
-              = f.text_area :content, class: 'form-control', style: 'min-height: 200px;', placeholder: 'Type your content here, including links. At least, explain the content around your link in a single paragraph.'
+              = f.text_area :content, class: post_input_class(@post, :content), style: 'min-height: 200px;', placeholder: 'Type your content here, including links. At least, explain the content around your link in a single paragraph.'
+              - if @post.errors[:content].present?
+                .invalid-feedback{style: 'display:block;'}
+                  - @post.errors.full_messages_for(:content).each do |error|
+                    = error
+                    %br/
             %small.form-text.text-muted
               = 'You can use Markdown.'
               %br/
