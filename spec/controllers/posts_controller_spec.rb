@@ -1,6 +1,50 @@
 require 'rails_helper'
 
 describe PostsController do
+  describe 'POST #create' do
+    it 'redirects to the root page if user is not signed in' do
+      post :create, params: { post: { title: 'title' } }
+
+      expect(response).to redirect_to('/')
+    end
+
+    context 'when user is signed in' do
+      let(:user) { create(:user, provider: 'github', uid: '123', name: 'John Doe', image_url: 'url', profile_url: 'url') }
+
+      before do
+        @request.env["devise.mapping"] = Devise.mappings[:user]
+        sign_in(user)
+      end
+
+      it 'shows new form if post is not valid' do
+        post = instance_double(Post, save: false)
+        title = 'Post title'
+        content = 'Post content'
+        allow(Post).to receive(:new).with(
+          user_id: user.id, title: title, content: content
+        ).and_return(post)
+
+        post 'create', params: { post: { title: title, content: content } }
+
+        expect(response).to render_template(:new)
+        expect(assigns(:post)).to eq(post)
+      end
+
+      it 'redirects to the post page if post was created successfully' do
+        post = instance_double(Post, save: true, id: 1)
+        title = 'Post title'
+        content = 'Post content'
+        allow(Post).to receive(:new).with(
+          user_id: user.id, title: title, content: content
+        ).and_return(post)
+
+        post 'create', params: { post: { title: title, content: content } }
+
+        expect(response).to redirect_to('/posts/1')
+      end
+    end
+  end
+
   describe 'GET #new' do
     it 'redirects to the root page if user is not signed in' do
       get :new

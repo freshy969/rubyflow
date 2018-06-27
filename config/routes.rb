@@ -4,5 +4,5 @@ Rails.application.routes.draw do
     delete 'sign_out' => 'devise/sessions#destroy'
   end
   root to: 'posts#index'
-  resources :posts, only: [:index, :show, :new]
+  resources :posts, only: [:index, :show, :new, :create]
 end
