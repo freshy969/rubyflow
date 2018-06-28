@@ -12,7 +12,7 @@ module Rubyflow
     config.load_defaults 5.2
     config.autoload_paths += [
       "#{config.root}/app/services", "#{config.root}/app/decorators", "#{config.root}/app/validators",
-      "#{config.root}/app/queries"
+      "#{config.root}/app/queries", "#{config.root}/app/policies"
     ]
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
