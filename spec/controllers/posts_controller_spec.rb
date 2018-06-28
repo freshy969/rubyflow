@@ -45,6 +45,85 @@ describe PostsController do
     end
   end
 
+  describe 'PUT #update' do
+    it 'redirects to the root page if user is not signed in' do
+      put :update, params: { id: '1', post: {} }
+
+      expect(response).to redirect_to('/')
+    end
+
+    context 'when user is signed in' do
+      let(:user) { create(:user, provider: 'github', uid: '123', name: 'John Doe', image_url: 'url', profile_url: 'url') }
+
+      before do
+        @request.env["devise.mapping"] = Devise.mappings[:user]
+        sign_in(user)
+      end
+
+      it 'shows edit form if post is not valid' do
+        post = instance_double(Post, id: 1, update_attributes: double)
+        allow(Users::FindPostQuery).to receive(:call).with(
+          post_id: '1', user: user
+        ).and_return(post)
+        title = 'Post title'
+        content = 'Post content'
+        allow(post).to receive(:update_attributes).with(
+          title: title, content: content
+        ).and_return(false)
+
+        put :update, params: { id: '1', post: { title: title, content: content } }
+
+        expect(response).to render_template(:edit)
+        expect(assigns(:post)).to eq(post)
+        expect(Users::FindPostQuery).to have_received(:call).with(
+          post_id: '1', user: user
+        ).once
+      end
+
+      it 'redirects to the post page if post was updated successfully' do
+        post = instance_double(Post, id: 1, update_attributes: double)
+        allow(Users::FindPostQuery).to receive(:call).with(
+          post_id: '1', user: user
+        ).and_return(post)
+        title = 'Post title'
+        content = 'Post content'
+        allow(post).to receive(:update_attributes).with(
+          title: title, content: content
+        ).and_return(true)
+
+        put :update, params: { id: '1', post: { title: title, content: content } }
+
+        expect(response).to redirect_to('/posts/1')
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    it 'redirects to the root page if user is not signed in' do
+      delete :destroy, params: { id: '1' }
+
+      expect(response).to redirect_to('/')
+    end
+
+    it 'deletes the post if user is signed in' do
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      user = create(:user, 
+        provider: 'github', uid: '123', name: 'John Doe', image_url: 'url', profile_url: 'url'
+      )
+      sign_in(user)
+      post = instance_double(Post, id: 1, destroy: double)
+      allow(Users::FindPostQuery).to receive(:call).with(
+        post_id: '1', user: user
+      ).and_return(post)
+      allow(post).to receive(:destroy)
+
+      delete :destroy, params: { id: '1' }
+
+      expect(post).to have_received(:destroy).once
+      expect(response).to redirect_to('/')
+    end
+  end
+
   describe 'GET #edit' do
     it 'redirects to the root page if user is not signed in' do
       get :edit, params: { id: '1' }

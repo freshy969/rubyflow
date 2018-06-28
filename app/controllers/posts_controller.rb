@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   
   def index
     @posts = ::Post.all
@@ -21,6 +21,18 @@ class PostsController < ApplicationController
     )
   end
 
+  def update
+    @post = ::Users::FindPostQuery.call(
+      post_id: params[:id], user: current_user
+    )
+
+    if @post.update_attributes(title: post_params[:title], content: post_params[:content])
+      redirect_to post_path(id: @post.id)
+    else
+      render :edit
+    end
+  end
+
   def create
     @post = ::Post.new(
       user_id: current_user.id, title: post_params[:title], content: post_params[:content]
@@ -31,6 +43,16 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def destroy
+    @post = ::Users::FindPostQuery.call(
+      post_id: params[:id], user: current_user
+    )
+
+    @post.destroy
+
+    redirect_to(:root)
   end
 
   private
