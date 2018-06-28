@@ -5,8 +5,16 @@
         %h3
           = fa_icon "calendar"
           = day
-      - posts.each do |post|
-        .col-md-8
-          %p
-            %h2= link_to(post.title, post)
-            %p= sanitize(post.content, tags: %w(strong p a i em), attributes: %w(href target))
+      .col-md-8
+        - posts.each do |post|
+          .row.justify-content-center
+            .col-md-1
+              = image_tag(post.user.image_url)
+            .col-md-11
+              %p
+                %h2= link_to(post.title, post)
+                %p= sanitize(post.content, tags: %w(strong p a i em), attributes: %w(href target))
+                %span.meta
+                  = link_to(post.user.profile_url, target: "_blank") do
+                    = fa_icon "github"
+                    = post.user.name

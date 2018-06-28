@@ -179,3 +179,21 @@ form#new_post img, form.edit_post img {
   margin-top: 8px;
   background-size: cover;
 }
+#posts img, #post img {
+  float: left;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 0px solid transparent;
+  margin-top: 15px;
+  background-size: cover;
+}
+#posts span.meta a {
+  text-decoration: none;
+  color: rgb(187, 187, 187);
+  font-size: 0.9em;
+  line-height: 1.5em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  color: rgb(102, 102, 102);
+}
