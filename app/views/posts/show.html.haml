@@ -1,10 +1,12 @@
 .container
-  .row.justify-content-center
-    .col-md-8#post
+  .row.justify-content-center#post
+    .col-md-1
+      = image_tag(@post.user.image_url)
+    .col-md-7
       %h1= @post.title
       %span.meta
         BY 
-        %span= 'John Doe' 
+        %span= @post.user.name
         —
         = @post.created_at
       - if @post.editable?
