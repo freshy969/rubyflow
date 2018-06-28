@@ -8,7 +8,7 @@ class PostsController < ApplicationController
 
   def show
     @post = ::Post.find(params[:id])
-    @post = ::PostDecorator.decorate(@post)
+    @post = ::PostDecorator.decorate(@post, context: { current_user: current_user })
   end
 
   def new
