@@ -7,4 +7,7 @@
         %span= 'John Doe' 
         —
         = @post.created_at
+      - if @post.editable?
+        %br/
+        = link_to("EDIT", edit_post_path(@post))
       %p= sanitize_post_content(@post.content)
