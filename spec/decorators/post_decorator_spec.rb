@@ -1,6 +1,24 @@
 require 'rails_helper'
 
 describe PostDecorator do
+  describe '#editable?' do
+    it 'returns the result of UserPolicy#editable? call' do
+      post = instance_double(Post)
+      user = instance_double(User)
+      allow(Posts::UserPolicy).to receive(:editable?).with(
+        post: post, user: user
+      ).and_return(true)
+
+      decorator = described_class.decorate(post, context: { current_user: user })
+      result = decorator.editable?
+
+      expect(result).to eq(true)
+      expect(Posts::UserPolicy).to have_received(:editable?).with(
+        post: post, user: user
+      ).once
+    end
+  end
+
   describe '#content' do
     it 'returns formatted content' do
       post = instance_double(Post, content: 'content')

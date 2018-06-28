@@ -8,4 +8,10 @@ class PostDecorator < Draper::Decorator
   def content
     ::Posts::MarkdownParserService.call(model.content)
   end
+
+  def editable?
+    ::Posts::UserPolicy.editable?(
+      post: model, user: context[:current_user]
+    )
+  end
 end
