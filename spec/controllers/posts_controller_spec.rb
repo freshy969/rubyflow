@@ -183,7 +183,7 @@ describe PostsController do
       another_post = instance_double(Post)
       decorated_post = double('decorated_post', created_at: '5 MAY 2018')
       another_decorated_post = double('decorated_post', created_at: '6 MAY 2018')
-      allow(Post).to receive(:all).and_return([post, another_post])
+      allow(Posts::ListQuery).to receive(:call).and_return([post, another_post])
       allow(PostDecorator).to receive(:decorate_collection).with(
         [post, another_post]
       ).and_return([decorated_post, another_decorated_post])
@@ -197,7 +197,7 @@ describe PostsController do
       expect(assigns(:posts)).to eq(grouped_posts)
       expect(response).to render_template(:index)
       expect(response.code).to eq('200')
-      expect(Post).to have_received(:all).once
+      expect(Posts::ListQuery).to have_received(:call).once
       expect(PostDecorator).to have_received(:decorate_collection).with(
         [post, another_post]
       ).once
