@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit]
   
   def index
     @posts = ::Post.all
@@ -13,6 +13,12 @@ class PostsController < ApplicationController
 
   def new
     @post = ::Post.new
+  end
+
+  def edit
+    @post = ::Users::FindPostQuery.call(
+      post_id: params[:id], user: current_user
+    )
   end
 
   def create

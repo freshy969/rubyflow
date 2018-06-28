@@ -45,6 +45,35 @@ describe PostsController do
     end
   end
 
+  describe 'GET #edit' do
+    it 'redirects to the root page if user is not signed in' do
+      get :edit, params: { id: '1' }
+
+      expect(response).to redirect_to('/')
+    end
+
+    it 'shows edit form' do
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      user = create(:user, 
+        provider: 'github', uid: '123', name: 'John Doe', image_url: 'url', profile_url: 'url'
+      )
+      post = instance_double(Post, id: 1)
+      allow(Users::FindPostQuery).to receive(:call).with(
+        post_id: '1', user: user
+      ).and_return(post)
+      sign_in(user)
+
+      get :edit, params: { id: post.id }
+
+      expect(assigns(:post)).to eq(post)
+      expect(response).to render_template(:edit)
+      expect(response.code).to eq('200')
+      expect(Users::FindPostQuery).to have_received(:call).with(
+        post_id: '1', user: user
+      ).once
+    end
+  end
+
   describe 'GET #new' do
     it 'redirects to the root page if user is not signed in' do
       get :new
