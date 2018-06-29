@@ -1,0 +1,9 @@
+.col-md-12
+  .row
+    .col-md-1
+      = image_tag(comment.user.image_url)
+    .col-md-11
+      %p
+        = comment.body
+      %span.author
+        = comment.user.name

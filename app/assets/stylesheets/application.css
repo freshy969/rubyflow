@@ -197,3 +197,24 @@ form#new_post img, form.edit_post img {
   margin-top: 4px;
   color: rgb(102, 102, 102);
 }
+#comments {
+  margin-bottom: 20px;
+}
+#comments h2 {
+  font-size: 1.5em;
+  line-height: 1.4em;
+  color: #424242;
+  font-weight: normal;
+  margin-bottom: 10px;
+}
+#comments p {
+  background: #fff;
+  padding: 15px;
+}
+#comments span.author {
+  color: #666;
+  text-transform: uppercase;
+  font-size: 13px;
+  margin-top: -8px;
+  display: block;
+}
