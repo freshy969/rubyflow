@@ -24,10 +24,15 @@ describe CommentsController do
         allow(Comment).to receive(:new).with(
           user_id: user.id, post_id: post.id, body: body
         ).and_return(comment)
-
+        allow(controller).to receive(:redirect_to).with('/posts/2',
+          gflash: { error: 'Please provide the comment body!' }
+        )
+        
         post 'create', params: { comment: { body: body }, post_id: post.id }
 
-        expect(response).to redirect_to('/posts/2')
+        expect(controller).to have_received(:redirect_to).with('/posts/2',
+          gflash: { error: 'Please provide the comment body!' }
+        ).once
       end
 
       it 'redirects to the post page if post was created successfully' do
@@ -38,10 +43,15 @@ describe CommentsController do
         allow(Comment).to receive(:new).with(
           user_id: user.id, post_id: post.id, body: body
         ).and_return(comment)
+        allow(controller).to receive(:redirect_to).with('/posts/2',
+          gflash: { success: 'Comment added successfully!' }
+        )
 
         post 'create', params: { comment: { body: body }, post_id: post.id }
 
-        expect(response).to redirect_to('/posts/2')
+        expect(controller).to have_received(:redirect_to).with('/posts/2',
+          gflash: { success: 'Comment added successfully!' }
+        ).once
       end
     end
   end
