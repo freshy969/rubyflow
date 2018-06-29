@@ -207,6 +207,7 @@ describe PostsController do
   describe 'GET #show' do
     it 'assigns post' do
       post = instance_double(Post, id: 1)
+      comment = instance_double(Comment)
       user = instance_double(User)
       allow(controller).to receive(:current_user).and_return(user)
       decorated_post = double('decorated_post')
@@ -214,10 +215,12 @@ describe PostsController do
       allow(PostDecorator).to receive(:decorate).with(
         post, context: { current_user: user }
       ).and_return(decorated_post)
+      allow(Comment).to receive(:new).and_return(comment)
 
       get :show, params: { id: post.id }
 
       expect(assigns(:post)).to eq(decorated_post)
+      expect(assigns(:comment)).to eq(comment)
       expect(Post).to have_received(:find).with(post.id.to_s).once
       expect(response).to render_template(:show)
       expect(response.code).to eq('200')
