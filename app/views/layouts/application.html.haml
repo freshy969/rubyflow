@@ -9,6 +9,9 @@
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
     = gflash
+    - if flash[:alert].present?
+      %script{:type=>"text/javascript"}
+        = add_gritter(flash[:alert], image: :error)
     %header
       .container
         .row.justify-content-center
