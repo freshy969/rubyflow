@@ -34,6 +34,7 @@ group :test do
   gem 'chromedriver-helper'
   gem 'database_cleaner'
   gem 'rails-controller-testing'
+  gem 'timecop'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
