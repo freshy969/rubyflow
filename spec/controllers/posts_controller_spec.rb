@@ -211,7 +211,7 @@ describe PostsController do
       user = instance_double(User)
       allow(controller).to receive(:current_user).and_return(user)
       decorated_post = double('decorated_post')
-      allow(Post).to receive(:find).with(post.id.to_s).and_return(post)
+      allow(Posts::FindQuery).to receive(:call).with(post.id.to_s).and_return(post)
       allow(PostDecorator).to receive(:decorate).with(
         post, context: { current_user: user }
       ).and_return(decorated_post)
@@ -221,7 +221,7 @@ describe PostsController do
 
       expect(assigns(:post)).to eq(decorated_post)
       expect(assigns(:comment)).to eq(comment)
-      expect(Post).to have_received(:find).with(post.id.to_s).once
+      expect(Posts::FindQuery).to have_received(:call).with(post.id.to_s).once
       expect(response).to render_template(:show)
       expect(response.code).to eq('200')
       expect(PostDecorator).to have_received(:decorate).with(

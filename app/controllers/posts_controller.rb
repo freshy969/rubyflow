@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = ::Post.find(params[:id])
+    @post = ::Posts::FindQuery.call(params[:id])
     @post = ::PostDecorator.decorate(@post, context: { current_user: current_user })
     @comment = ::Comment.new
   end
