@@ -49,10 +49,11 @@ describe PostsController do
         allow(Post).to receive(:new).with(
           user_id: user.id, title: title, content: content
         ).and_return(post)
+        allow(controller).to receive(:redirect_to).with('/posts/1', gflash: { success: "Post added successfully!" })
 
         post 'create', params: { post: { title: title, content: content } }
 
-        expect(response).to redirect_to('/posts/1')
+        expect(controller).to have_received(:redirect_to).with('/posts/1', gflash: { success: "Post added successfully!" }).once
       end
     end
   end
@@ -102,10 +103,11 @@ describe PostsController do
         allow(post).to receive(:update_attributes).with(
           title: title, content: content
         ).and_return(true)
+        allow(controller).to receive(:redirect_to).with('/posts/1', gflash: { success: "Post updated successfully!" })
 
         put :update, params: { id: '1', post: { title: title, content: content } }
 
-        expect(response).to redirect_to('/posts/1')
+        expect(controller).to have_received(:redirect_to).with('/posts/1', gflash: { success: "Post updated successfully!" }).once
       end
     end
   end
@@ -128,11 +130,12 @@ describe PostsController do
         post_id: '1', user: user
       ).and_return(post)
       allow(post).to receive(:destroy)
+      allow(controller).to receive(:redirect_to).with(:root, gflash: { success: "Post destroyed successfully!" })
 
       delete :destroy, params: { id: '1' }
 
       expect(post).to have_received(:destroy).once
-      expect(response).to redirect_to('/')
+      expect(controller).to have_received(:redirect_to).with(:root, gflash: { success: "Post destroyed successfully!" }).once
     end
   end
 
