@@ -1,6 +1,10 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   
+  def rss
+    @posts = ::Posts::RSSQuery.call
+  end
+
   def index
     @posts = ::Posts::ListQuery.call
     @posts = ::PostDecorator.decorate_collection(@posts).group_by(&:created_at)

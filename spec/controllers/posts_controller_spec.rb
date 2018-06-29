@@ -1,6 +1,18 @@
 require 'rails_helper'
 
 describe PostsController do
+  describe 'GET #rss' do
+    it 'assigns posts for RSS channel' do
+      post = instance_double(Post)
+      allow(Posts::RSSQuery).to receive(:call).and_return([post])
+
+      get :rss
+
+      expect(response.code).to eq('200')
+      expect(assigns(:posts)).to eq([post])
+    end
+  end
+
   describe 'POST #create' do
     it 'redirects to the root page if user is not signed in' do
       post :create, params: { post: { title: 'title' } }
