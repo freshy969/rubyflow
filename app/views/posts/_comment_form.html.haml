@@ -1,0 +1,13 @@
+.row
+  .col-md-12
+    = form_for([post, comment]) do |f|
+      %h2= 'Post a comment'
+      .row
+        .col-md-1
+          = image_tag(current_user.image_url)
+        .col-md-11
+          .form-group
+            = f.text_area :body, class: 'form-control', style: 'min-height: 200px;', placeholder: 'Type your comment here'
+          %small.form-text.text-muted
+            = 'You can use Markdown.'
+          = f.submit 'Save', class: 'btn'

@@ -149,14 +149,14 @@ form#new_post, form.edit_post {
   margin-top: 20px;
   margin-bottom: 40px;
 }
-form#new_post h2, form.edit_post h2 {
+form#new_post h2, form.edit_post h2, form#new_comment h2 {
   font-size: 1.5em;
   line-height: 1.4em;
   color: #424242;
   font-weight: normal;
   margin-bottom: 10px;
 }
-form#new_post input[type='submit'], form.edit_post input[type='submit'] {
+form#new_post input[type='submit'], form.edit_post input[type='submit'], form#new_comment input[type='submit'] {
   cursor: pointer;
   padding: 2px 24px;
   font-size: 1.3em;

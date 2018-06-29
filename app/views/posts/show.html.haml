@@ -15,3 +15,6 @@
         = " "
         = link_to("DELETE", post_path(@post), method: :delete, data: { confirm: 'Are you sure?'})
       %p= sanitize_post_content(@post.content)
+      - if user_signed_in?
+        = render "comment_form", post: @post, comment: @comment
+
