@@ -6,6 +6,7 @@ class NewPostForm extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChangeAttribute = this.onChangeAttribute.bind(this);
+    this.state = { title: null, content: null }
   }
 
   onChangeAttribute({ target }) {
@@ -15,6 +16,21 @@ class NewPostForm extends React.Component {
 
   handleSubmit (event) {
     event.preventDefault();
+    let body = JSON.stringify({authenticity_token: this.props.csrf_token, post: {title: this.state.title, content: this.state.content} })
+    fetch('http://localhost:3000/p', {
+        method: 'POST',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRF-Token': this.props.csrf_token,
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: body,
+        credentials: 'same-origin'
+      }).then((response) => {return response.json()})
+      .then((post)=>{
+        console.log(post);
+      })
   }
 
   render () {

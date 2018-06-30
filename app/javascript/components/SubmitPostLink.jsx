@@ -13,7 +13,7 @@ class SubmitPostLink extends React.Component {
   toggleNewPostForm () {
     if(this.state.postFormHidden) {
       this.setState({postFormHidden: false});
-      ReactDOM.render(<NewPostForm />, $('#new_post_form')[0]);
+      ReactDOM.render(<NewPostForm csrf_token={this.props.csrf_token} />, $('#new_post_form')[0]);
     } else {
       this.setState({postFormHidden: true});
       ReactDOM.unmountComponentAtNode($('#new_post_form')[0]);
