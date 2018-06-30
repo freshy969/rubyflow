@@ -219,3 +219,23 @@ form#new_post img, form.edit_post img {
   margin-top: -8px;
   display: block;
 }
+.comments {
+  margin-top: 7px;
+}
+.comment {
+  font-size: 0.9em;
+  color: #999;
+  line-height: 1.3em;
+  margin-left: 20px;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.comment span.author {
+  letter-spacing: 0px;
+  text-transform: uppercase;
+  color: #666;
+}
+.see-comments { 
+  margin-left: 20px;
+  text-transform: uppercase;
+}
