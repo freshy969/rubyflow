@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
       { error: 'Please provide the comment body!' }
     end
 
-    redirect_to(post_path(id: post.id), gflash: notification)
+    redirect_to(post_path(id: post.slug), gflash: notification)
   end
 
   private
