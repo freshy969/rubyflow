@@ -18,3 +18,11 @@
                   = link_to(post.user.profile_url, target: "_blank") do
                     = fa_icon "github"
                     = post.user.name
+                - if post.comments.any?
+                  .row.comments
+                    - post.comments.take(5).each do |comment|
+                      = render "comment_inline", comment: comment, post: post
+                    .col-md-12
+                      .see-comments
+                        = fa_icon "comments"
+                        = link_to("Read all comments", post)
