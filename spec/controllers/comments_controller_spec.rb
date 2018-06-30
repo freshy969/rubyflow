@@ -20,7 +20,7 @@ describe CommentsController do
         comment = instance_double(Comment, save: false)
         post = instance_double(Post, id: 2, slug: 'slug')
         body = 'comment body'
-        allow(Post).to receive(:find).with(post.id.to_s).and_return(post)
+        allow(Post).to receive(:find_by!).with(slug: post.id.to_s).and_return(post)
         allow(Comment).to receive(:new).with(
           user_id: user.id, post_id: post.id, body: body
         ).and_return(comment)
@@ -39,7 +39,7 @@ describe CommentsController do
         comment = instance_double(Comment, save: true)
         post = instance_double(Post, id: 2, slug: "slug")
         body = 'comment body'
-        allow(Post).to receive(:find).with(post.id.to_s).and_return(post)
+        allow(Post).to receive(:find_by!).with(slug: post.id.to_s).and_return(post)
         allow(Comment).to receive(:new).with(
           user_id: user.id, post_id: post.id, body: body
         ).and_return(comment)

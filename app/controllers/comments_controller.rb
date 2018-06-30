@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    post = ::Post.find(params[:post_id])
+    post = ::Post.find_by!(slug: params[:post_id])
     comment = ::Comment.new(
       body: comments_params[:body], user_id: current_user.id, post_id: post.id
     )
