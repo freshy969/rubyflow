@@ -5,4 +5,7 @@ class CommentDecorator < Draper::Decorator
     ::Posts::MarkdownParserService.call(model.body)
   end
 
+  def created_at
+    ::Posts::DateManipulationService.call(model.created_at)
+  end
 end
