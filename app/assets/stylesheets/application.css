@@ -230,6 +230,9 @@ form#new_post img, form.edit_post img {
   letter-spacing: 1px;
   margin-bottom: 4px;
 }
+.comment p {
+  display: inline;
+}
 .comment span.author {
   letter-spacing: 0px;
   text-transform: uppercase;
