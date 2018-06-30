@@ -1,6 +1,6 @@
 .col-md-12
   .comment
     = fa_icon "comment"
-    = comment.body.truncate(30)
+    = sanitize_post_content(comment.body.truncate(30))
     %span.author
       = comment.user.name
