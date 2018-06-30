@@ -1,8 +1,8 @@
 module Posts
   class FindQuery
 
-    def self.call(id)
-      ::Post.includes(comments: :user).find(id)
+    def self.call(slug)
+      ::Post.includes(comments: :user).find_by!(slug: slug)
     end
 
   end

@@ -5,7 +5,7 @@ describe Posts::FindQuery do
     it 'returns post' do
       post = create(:post)
 
-      expect(described_class.call(post.id)).to eq(post)
+      expect(described_class.call(post.slug)).to eq(post)
     end
   end
 end
