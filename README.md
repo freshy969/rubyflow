@@ -8,25 +8,29 @@ This project was clonned in the name of the education and growth as a Ruby devel
 
 ## Project configuration
 
-Create configuration file:
+1. Create configuration file:
 
 ```
 cp config/rubyflow.yml.example config/rubyflow.yml
 ```
 
-Create new Github app and replace placeholders with your app's `CLIENT_ID` and `CLIENT_SECRET` in order to be able to sign in via Github account.
+2. Create new Github app and replace placeholders with your app's `CLIENT_ID` and `CLIENT_SECRET` in order to be able to sign in via Github account.
 
-Create database, run migrations and create the test data:
+3. Create database, run migrations and create the test data:
 
 ```
-bundle exec rake rake rubyflow:reset
+bundle exec rake rubyflow:reset
 ```
 
-Enjoy:
+4. Enjoy:
 
 ```
 bundle exec rails s
 ```
+
+## Bugs and improvements
+
+Please open a new issue if you will find something that needs to be fixed or improved. Thank you!
 
 ## Author
 
