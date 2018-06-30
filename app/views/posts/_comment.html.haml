@@ -6,3 +6,5 @@
       = sanitize_post_content(comment.body)
       %span.author
         = comment.user.name
+        = "—" 
+        = comment.created_at
