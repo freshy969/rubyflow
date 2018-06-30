@@ -52,3 +52,4 @@ gem "devise"
 gem "omniauth"
 gem "omniauth-github"
 gem "gritter", "1.2.0"
+gem 'react-rails'
