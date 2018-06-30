@@ -242,3 +242,7 @@ form#new_post img, form.edit_post img {
   margin-left: 20px;
   text-transform: uppercase;
 }
+header ul li div {
+  display: inline;
+  cursor: pointer;
+}
