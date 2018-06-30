@@ -4,4 +4,14 @@ class Post < ApplicationRecord
 
   belongs_to :user
   has_many :comments, -> { order(created_at: :desc) }, dependent: :destroy
+
+  before_create :generate_slug
+
+  private
+
+  def generate_slug
+    self.slug = ::Posts::SlugGeneratorService.call(
+      title: self.title
+    )
+  end
 end
