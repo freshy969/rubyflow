@@ -7,6 +7,10 @@ class Post < ApplicationRecord
 
   before_create :generate_slug
 
+  def to_param
+    slug
+  end
+
   private
 
   def generate_slug
