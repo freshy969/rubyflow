@@ -6,8 +6,13 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = ::Posts::ListQuery.call
-    @posts = ::PostDecorator.decorate_collection(@posts).group_by(&:created_at)
+    @posts = ::Posts::ListQuery.call(offset: params[:offset])
+    @posts = ::PostDecorator.decorate_collection(@posts)
+
+    respond_to do |format|
+      format.html { @posts = @posts.group_by(&:created_at) }
+      format.json { render json: @posts }
+    end
   end
 
   def show

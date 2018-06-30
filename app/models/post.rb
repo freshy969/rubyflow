@@ -11,6 +11,10 @@ class Post < ApplicationRecord
     slug
   end
 
+  def as_json(*)
+    super.slice("title", "content", "slug", "created_at")
+  end
+
   private
 
   def generate_slug
