@@ -1,5 +1,7 @@
 import React from "react"
+import ReactDOM from "react-dom"
 import PropTypes from "prop-types"
+import NewPostForm from "./NewPostForm"
 
 class SubmitPostLink extends React.Component {
   constructor (props) {
@@ -11,10 +13,10 @@ class SubmitPostLink extends React.Component {
   toggleNewPostForm () {
     if(this.state.postFormHidden) {
       this.setState({postFormHidden: false});
-      console.log('show post form');
+      ReactDOM.render(<NewPostForm />, $('#new_post_form')[0]);
     } else {
       this.setState({postFormHidden: true});
-      console.log('hide post form');
+      ReactDOM.unmountComponentAtNode($('#new_post_form')[0]);
     }
   }
 
