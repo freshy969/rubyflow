@@ -44,9 +44,17 @@ class PostsController < ApplicationController
     )
 
     if @post.save
-      redirect_to(post_path(id: @post.slug), gflash: { success: "Post added successfully!" })
+      respond_to do |format|
+        format.html do
+          redirect_to(post_path(id: @post.slug), gflash: { success: "Post added successfully!" })
+        end
+        format.json { render json: { slug: @post.slug }, status: 204 }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
     end
   end
 

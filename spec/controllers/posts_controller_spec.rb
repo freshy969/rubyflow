@@ -14,13 +14,7 @@ describe PostsController do
   end
 
   describe 'POST #create' do
-    it 'redirects to the root page if user is not signed in' do
-      post :create, params: { post: { title: 'title' } }
-
-      expect(response).to redirect_to('/')
-    end
-
-    context 'when user is signed in' do
+    context 'JSON format' do
       let(:user) { create(:user, provider: 'github', uid: '123', name: 'John Doe', image_url: 'url', profile_url: 'url') }
 
       before do
@@ -28,21 +22,22 @@ describe PostsController do
         sign_in(user)
       end
 
-      it 'shows new form if post is not valid' do
-        post = instance_double(Post, save: false)
+      it 'returns error response if post is not valid' do
+        errors = { title: ["can't be blank"] }
+        post = instance_double(Post, save: false, errors: errors)
         title = 'Post title'
         content = 'Post content'
         allow(Post).to receive(:new).with(
           user_id: user.id, title: title, content: content
         ).and_return(post)
 
-        post 'create', params: { post: { title: title, content: content } }
+        post 'create', params: { post: { title: title, content: content } }, format: :json
 
-        expect(response).to render_template(:new)
-        expect(assigns(:post)).to eq(post)
+        expect(response.code).to eq('422')
+        expect(response.body).to eq(errors.to_json)
       end
 
-      it 'redirects to the post page if post was created successfully' do
+      it 'returns success response if post was created successfully' do
         post = instance_double(Post, save: true, id: 1, slug: 'slug')
         title = 'Post title'
         content = 'Post content'
@@ -51,9 +46,55 @@ describe PostsController do
         ).and_return(post)
         allow(controller).to receive(:redirect_to).with("/p/#{post.slug}", gflash: { success: "Post added successfully!" })
 
-        post 'create', params: { post: { title: title, content: content } }
+        post 'create', params: { post: { title: title, content: content } }, format: :json
 
-        expect(controller).to have_received(:redirect_to).with("/p/#{post.slug}", gflash: { success: "Post added successfully!" }).once
+        expect(response.code).to eq('204')
+        expect(response.body).to eq({slug: post.slug}.to_json)
+      end
+    end
+
+    context 'HTML format' do
+      it 'redirects to the root page if user is not signed in' do
+        post :create, params: { post: { title: 'title' } }
+
+        expect(response).to redirect_to('/')
+      end
+
+      context 'when user is signed in' do
+        let(:user) { create(:user, provider: 'github', uid: '123', name: 'John Doe', image_url: 'url', profile_url: 'url') }
+
+        before do
+          @request.env["devise.mapping"] = Devise.mappings[:user]
+          sign_in(user)
+        end
+
+        it 'shows new form if post is not valid' do
+          post = instance_double(Post, save: false)
+          title = 'Post title'
+          content = 'Post content'
+          allow(Post).to receive(:new).with(
+            user_id: user.id, title: title, content: content
+          ).and_return(post)
+
+          post 'create', params: { post: { title: title, content: content } }
+
+          expect(response).to render_template(:new)
+          expect(assigns(:post)).to eq(post)
+        end
+
+        it 'redirects to the post page if post was created successfully' do
+          post = instance_double(Post, save: true, id: 1, slug: 'slug')
+          title = 'Post title'
+          content = 'Post content'
+          allow(Post).to receive(:new).with(
+            user_id: user.id, title: title, content: content
+          ).and_return(post)
+          allow(controller).to receive(:redirect_to).with("/p/#{post.slug}", gflash: { success: "Post added successfully!" })
+
+          post 'create', params: { post: { title: title, content: content } }
+
+          expect(controller).to have_received(:redirect_to).with("/p/#{post.slug}", gflash: { success: "Post added successfully!" }).once
+        end
       end
     end
   end
