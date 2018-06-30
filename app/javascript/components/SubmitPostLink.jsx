@@ -4,10 +4,18 @@ import PropTypes from "prop-types"
 class SubmitPostLink extends React.Component {
   constructor (props) {
     super(props);
+    this.state = { postFormHidden: true };
+    this.toggleNewPostForm = this.toggleNewPostForm.bind(this);
   }
 
   toggleNewPostForm () {
-    console.log('toggle post form');
+    if(this.state.postFormHidden) {
+      this.setState({postFormHidden: false});
+      console.log('show post form');
+    } else {
+      this.setState({postFormHidden: true});
+      console.log('hide post form');
+    }
   }
 
   render () { 
