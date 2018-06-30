@@ -49,11 +49,11 @@ describe PostsController do
         allow(Post).to receive(:new).with(
           user_id: user.id, title: title, content: content
         ).and_return(post)
-        allow(controller).to receive(:redirect_to).with('/posts/1', gflash: { success: "Post added successfully!" })
+        allow(controller).to receive(:redirect_to).with('/p/1', gflash: { success: "Post added successfully!" })
 
         post 'create', params: { post: { title: title, content: content } }
 
-        expect(controller).to have_received(:redirect_to).with('/posts/1', gflash: { success: "Post added successfully!" }).once
+        expect(controller).to have_received(:redirect_to).with('/p/1', gflash: { success: "Post added successfully!" }).once
       end
     end
   end
@@ -103,11 +103,11 @@ describe PostsController do
         allow(post).to receive(:update_attributes).with(
           title: title, content: content
         ).and_return(true)
-        allow(controller).to receive(:redirect_to).with('/posts/1', gflash: { success: "Post updated successfully!" })
+        allow(controller).to receive(:redirect_to).with('/p/1', gflash: { success: "Post updated successfully!" })
 
         put :update, params: { id: '1', post: { title: title, content: content } }
 
-        expect(controller).to have_received(:redirect_to).with('/posts/1', gflash: { success: "Post updated successfully!" }).once
+        expect(controller).to have_received(:redirect_to).with('/p/1', gflash: { success: "Post updated successfully!" }).once
       end
     end
   end
