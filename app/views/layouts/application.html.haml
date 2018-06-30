@@ -22,9 +22,7 @@
           .col-md-6
             %ul
               %li
-                = link_to(new_post_path) do
-                  = fa_icon "plus"
-                  = "Submit"
+                = react_component("SubmitPostLink" , {image_url: current_user.try(:image_url)})
               %li
                 = link_to('http://twitter.com/pdabrowski_k1', target: '_blank') do
                   = fa_icon "twitter"
