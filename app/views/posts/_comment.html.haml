@@ -3,7 +3,6 @@
     .col-md-1
       = image_tag(comment.user.image_url)
     .col-md-11
-      %p
-        = comment.body
+      = sanitize_post_content(comment.body)
       %span.author
         = comment.user.name
