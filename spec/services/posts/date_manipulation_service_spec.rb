@@ -2,14 +2,24 @@ require 'rails_helper'
 
 describe Posts::DateManipulationService do
   describe '.call' do
-    it 'returns the day name with the `last` prefix if given post was created today' do
+    it 'returns `TODAY` if given post was created today' do
       date = Date.today
       time_with_zone = date.in_time_zone
       day_name = date.strftime("%A")
 
       expect(described_class.call(
         time_with_zone
-      )).to eq("LAST #{day_name.upcase}")
+      )).to eq("TODAY")
+    end
+
+    it 'returns `YESTERDAY` if given post was created yesterday' do
+      date = Date.today - 1.day
+      time_with_zone = date.in_time_zone
+      day_name = date.strftime("%A")
+
+      expect(described_class.call(
+        time_with_zone
+      )).to eq("YESTERDAY")
     end
 
     it 'returns the day name with the `last` prefix if given post was created 3 days ago' do
