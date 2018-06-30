@@ -43,17 +43,17 @@ describe PostsController do
       end
 
       it 'redirects to the post page if post was created successfully' do
-        post = instance_double(Post, save: true, id: 1)
+        post = instance_double(Post, save: true, id: 1, slug: 'slug')
         title = 'Post title'
         content = 'Post content'
         allow(Post).to receive(:new).with(
           user_id: user.id, title: title, content: content
         ).and_return(post)
-        allow(controller).to receive(:redirect_to).with('/p/1', gflash: { success: "Post added successfully!" })
+        allow(controller).to receive(:redirect_to).with("/p/#{post.slug}", gflash: { success: "Post added successfully!" })
 
         post 'create', params: { post: { title: title, content: content } }
 
-        expect(controller).to have_received(:redirect_to).with('/p/1', gflash: { success: "Post added successfully!" }).once
+        expect(controller).to have_received(:redirect_to).with("/p/#{post.slug}", gflash: { success: "Post added successfully!" }).once
       end
     end
   end
@@ -94,7 +94,7 @@ describe PostsController do
       end
 
       it 'redirects to the post page if post was updated successfully' do
-        post = instance_double(Post, id: 1, update_attributes: double)
+        post = instance_double(Post, id: 1, slug: 'slug', update_attributes: double)
         allow(Users::FindPostQuery).to receive(:call).with(
           post_id: '1', user: user
         ).and_return(post)
@@ -103,11 +103,11 @@ describe PostsController do
         allow(post).to receive(:update_attributes).with(
           title: title, content: content
         ).and_return(true)
-        allow(controller).to receive(:redirect_to).with('/p/1', gflash: { success: "Post updated successfully!" })
+        allow(controller).to receive(:redirect_to).with("/p/#{post.slug}", gflash: { success: "Post updated successfully!" })
 
         put :update, params: { id: '1', post: { title: title, content: content } }
 
-        expect(controller).to have_received(:redirect_to).with('/p/1', gflash: { success: "Post updated successfully!" }).once
+        expect(controller).to have_received(:redirect_to).with("/p/#{post.slug}", gflash: { success: "Post updated successfully!" }).once
       end
     end
   end

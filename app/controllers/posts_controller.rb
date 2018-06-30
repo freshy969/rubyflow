@@ -32,7 +32,7 @@ class PostsController < ApplicationController
     )
 
     if @post.update_attributes(title: post_params[:title], content: post_params[:content])
-      redirect_to(post_path(id: @post.id), gflash: { success: "Post updated successfully!" })
+      redirect_to(post_path(id: @post.slug), gflash: { success: "Post updated successfully!" })
     else
       render :edit
     end
@@ -44,7 +44,7 @@ class PostsController < ApplicationController
     )
 
     if @post.save
-      redirect_to(post_path(id: @post.id), gflash: { success: "Post added successfully!" })
+      redirect_to(post_path(id: @post.slug), gflash: { success: "Post added successfully!" })
     else
       render :new
     end
