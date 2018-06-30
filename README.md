@@ -4,7 +4,7 @@
 
 This project was clonned in the name of the education and growth as a Ruby developer.
 
-**Full course:** [http://gddev.org/courses/rubyflow-com-clone])http://gddev.org/courses/rubyflow-com-clone)
+**Full course:** [http://gddev.org/courses/rubyflow-com-clone](http://gddev.org/courses/rubyflow-com-clone)
 
 ## Project configuration
 
