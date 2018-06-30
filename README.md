@@ -1,4 +1,4 @@
-# The rubyflow.com clone
+# The rubyflow.com clone (WORK IN PROGRESS)
 
 [Rubyflow](http://rubyflow.com) is an online publishing platform where anyone can post a link to the article or any other useful resource related to the Ruby programming language.
 
