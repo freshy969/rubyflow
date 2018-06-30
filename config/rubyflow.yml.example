@@ -1,0 +1,12 @@
+defaults: &defaults
+  github_app_id: 'APP_ID'
+  github_app_secret: 'APP_SECRET'
+
+development:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+test: &test
+  <<: *defaults

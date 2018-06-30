@@ -27,3 +27,4 @@
 /public/*
 .rspec
 /config/database.yml
+/config/rubyflow.yml

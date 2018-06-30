@@ -28,7 +28,7 @@ Devise.setup do |config|
   # Configure the parent class responsible to send e-mails.
   # config.parent_mailer = 'ActionMailer::Base'
 
-  config.omniauth :github, ENV['GITHUB_APP_ID'], ENV['GITHUB_APP_SECRET']
+  config.omniauth :github, Rubyflow.config["github_app_id"], Rubyflow.config["github_app_secret"]
   
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
