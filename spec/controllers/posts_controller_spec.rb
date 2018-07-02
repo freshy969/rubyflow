@@ -48,7 +48,7 @@ describe PostsController do
 
         post 'create', params: { post: { title: title, content: content } }, format: :json
 
-        expect(response.code).to eq('204')
+        expect(response.code).to eq('201')
         expect(response.body).to eq({slug: post.slug}.to_json)
       end
     end
