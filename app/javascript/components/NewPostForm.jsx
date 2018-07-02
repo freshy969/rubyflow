@@ -17,6 +17,8 @@ class NewPostForm extends React.Component {
   handleSubmit (event) {
     event.preventDefault();
     let body = JSON.stringify({authenticity_token: this.props.csrf_token, post: {title: this.state.title, content: this.state.content} })
+    $("div[class='invalid-feedback']").hide();
+    $("div[class='invalid-feedback']").text('');
     fetch('http://localhost:3000/p', {
         method: 'POST',
         headers: {
@@ -28,8 +30,18 @@ class NewPostForm extends React.Component {
         body: body,
         credentials: 'same-origin'
       }).then((response) => {return response.json()})
-      .then((post)=>{
-        console.log(post);
+      .then((post) => {
+        if(post.slug) {
+          document.location = "/p/" + post.slug;
+        } else {
+          $.each(post, function(error_name, values) {
+            let element_id = "#" + error_name + "_post_input div[class='invalid-feedback']";
+            $.each(values, function(index, error) {
+              $(element_id).append(error + "<br/>")
+            });
+            $(element_id).show();
+          });
+        };
       })
   }
 
@@ -47,12 +59,14 @@ class NewPostForm extends React.Component {
                   <img src={image_url} />
                 </div>
                 <div className='col-md-11'>
-                  <div className='form-group'>
+                  <div className='form-group' id="title_post_input">
                     <input className="form-control" placeholder="Title" type="text" name="title" id="post_title" onChange={this.onChangeAttribute} />
+                    <div className="invalid-feedback" style={{display: 'none'}}></div>
                   </div>
-                  <div className='form-group'>
+                  <div className='form-group' id="content_post_input">
                     <textarea className="form-control" style={{minHeight: '200px'}} placeholder="Type your content here, including links. At least, explain the content around your link in a single paragraph." name="content" id="post_content" onChange={this.onChangeAttribute}>
                     </textarea>
+                    <div className="invalid-feedback" style={{display: 'none'}}></div>
                   </div>
                   <small className='form-text text-muted'>You can use Markdown.
                     <br/>
