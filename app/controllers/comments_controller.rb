@@ -7,13 +7,17 @@ class CommentsController < ApplicationController
       body: comments_params[:body], user_id: current_user.id, post_id: post.id
     )
 
-    notification = if comment.save
-      { success: 'Comment added successfully!' }
+    if comment.save
+      respond_to do |format|
+        format.html { redirect_to(post_path(id: post.slug), gflash: { success: 'Comment added successfully!' }) }
+        format.json { render json: { success: true, message: 'Comment added successfully!' } }
+      end
     else
-      { error: 'Please provide the comment body!' }
+      respond_to do |format|
+        format.html { redirect_to(post_path(id: post.slug), gflash: { error: 'Please provide the comment body!' }) }
+        format.json { render json: { success: false, message: 'Please provide the comment body!' } }
+      end
     end
-
-    redirect_to(post_path(id: post.slug), gflash: notification)
   end
 
   private

@@ -6,8 +6,13 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = ::Posts::ListQuery.call
-    @posts = ::PostDecorator.decorate_collection(@posts).group_by(&:created_at)
+    @posts = ::Posts::ListQuery.call(offset: params[:offset])
+    @posts = ::PostDecorator.decorate_collection(@posts)
+
+    respond_to do |format|
+      format.html { @posts = @posts.group_by(&:created_at) }
+      format.json { render json: @posts }
+    end
   end
 
   def show
@@ -44,9 +49,17 @@ class PostsController < ApplicationController
     )
 
     if @post.save
-      redirect_to(post_path(id: @post.slug), gflash: { success: "Post added successfully!" })
+      respond_to do |format|
+        format.html do
+          redirect_to(post_path(id: @post.slug), gflash: { success: "Post added successfully!" })
+        end
+        format.json { render json: { slug: @post.slug }, status: 204 }
+      end
     else
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
     end
   end
 

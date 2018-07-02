@@ -1,6 +1,16 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
+  describe '#as_json' do
+    it 'returns post attributes for the JSON serialization' do
+      post = build(:post, title: 'title', content: 'content', slug: 'slug')
+
+      expect(post.to_json).to eq({
+        title: post.title, content: post.content, slug: post.slug, created_at: nil
+      }.to_json)
+    end
+  end
+
   describe 'slug generation' do
     it 'generates new slug during the post creation' do
       post = build(:post, title: 'Ruby on Rails tutorial')
