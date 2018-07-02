@@ -53,7 +53,7 @@ class PostsController < ApplicationController
         format.html do
           redirect_to(post_path(id: @post.slug), gflash: { success: "Post added successfully!" })
         end
-        format.json { render json: { slug: @post.slug }, status: 204 }
+        format.json { render json: { slug: @post.slug }, status: 201 }
       end
     else
       respond_to do |format|
