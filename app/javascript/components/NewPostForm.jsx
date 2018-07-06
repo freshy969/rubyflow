@@ -5,13 +5,25 @@ class NewPostForm extends React.Component {
   constructor (props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.authenticateWithGithub = this.authenticateWithGithub.bind(this);
     this.onChangeAttribute = this.onChangeAttribute.bind(this);
     this.state = { title: null, content: null }
+
+    if(this.props.user_signed_in) {
+      this.state.button_label = 'Save'
+    } else {
+      this.state.button_label = 'Authenticate with Github'
+    }
   }
 
   onChangeAttribute({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
+  }
+
+  authenticateWithGithub (event) {
+    event.preventDefault();
+    document.location = "/users/auth/github";
   }
 
   handleSubmit (event) {
@@ -46,13 +58,14 @@ class NewPostForm extends React.Component {
   }
 
   render () {
-    const { image_url } = this.props;
+    const { image_url, user_signed_in } = this.props;
+    const { button_label} = this.state;
 
     return (
       <div className='container'>
         <div className='row justify-content-center'>
           <div className='col-md-8'>
-            <form className="new_post" id="new_post" onSubmit={this.handleSubmit}>
+            <form className="new_post" id="new_post" onSubmit={user_signed_in ? this.handleSubmit : this.authenticateWithGithub }>
               <h2>Submit a post</h2>
               <div className='row'>
                 <div className='col-md-1'>
@@ -72,7 +85,7 @@ class NewPostForm extends React.Component {
                     <br/>
                     Note that your post may be edited to suit the format of the site.
                   </small>
-                  <input type="submit" name="commit" value="Save" className="btn" />
+                  <input type="submit" name="commit" value={button_label} className="btn" />
                 </div>
               </div>
             </form>
