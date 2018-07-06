@@ -31,12 +31,7 @@
                 = link_to(:rss) do
                   = fa_icon "rss"
                   = "RSS"
-              - unless user_signed_in?
-                %li
-                  = link_to(user_github_omniauth_authorize_path) do
-                    = fa_icon "user"
-                    = "Sign in"
-              - else
+              - if user_signed_in?
                 %li
                   = link_to(:sign_out, method: :delete) do
                     = fa_icon "user"
