@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import SubmitPostFormButton from "./SubmitPostFormButton"
 
 class NewPostForm extends React.Component {
   constructor (props) {
@@ -8,12 +9,6 @@ class NewPostForm extends React.Component {
     this.authenticateWithGithub = this.authenticateWithGithub.bind(this);
     this.onChangeAttribute = this.onChangeAttribute.bind(this);
     this.state = { title: null, content: null }
-
-    if(this.props.user_signed_in) {
-      this.state.button_label = 'Save'
-    } else {
-      this.state.button_label = 'Authenticate with Github'
-    }
   }
 
   onChangeAttribute({ target }) {
@@ -85,7 +80,7 @@ class NewPostForm extends React.Component {
                     <br/>
                     Note that your post may be edited to suit the format of the site.
                   </small>
-                  <input type="submit" name="commit" value={button_label} className="btn" />
+                  <SubmitPostFormButton user_signed_in={user_signed_in}/>
                 </div>
               </div>
             </form>
