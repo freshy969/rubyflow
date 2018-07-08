@@ -21,6 +21,16 @@ class NewPostForm extends React.Component {
     document.location = "/users/auth/github";
   }
 
+  renderErrorsOnForm (errors) {
+    $.each(errors, function(error_name, values) {
+      let element_id = "#" + error_name + "_post_input div[class='invalid-feedback']";
+      $.each(values, function(index, error) {
+        $(element_id).append(error + "<br/>")
+      });
+      $(element_id).show();
+    });
+  }
+
   handleSubmit (event) {
     event.preventDefault();
     let body = JSON.stringify({authenticity_token: this.props.csrf_token, post: {title: this.state.title, content: this.state.content} })
@@ -41,13 +51,7 @@ class NewPostForm extends React.Component {
         if(post.slug) {
           document.location = "/p/" + post.slug;
         } else {
-          $.each(post, function(error_name, values) {
-            let element_id = "#" + error_name + "_post_input div[class='invalid-feedback']";
-            $.each(values, function(index, error) {
-              $(element_id).append(error + "<br/>")
-            });
-            $(element_id).show();
-          });
+          this.renderErrorsOnForm(post);
         };
       })
   }
@@ -90,5 +94,10 @@ class NewPostForm extends React.Component {
     );
   }
 }
+
+NewPostForm.propTypes = {
+  user_signed_in: PropTypes.bool.isRequired,
+  csrf_token: PropTypes.string.isRequired
+};
 
 export default NewPostForm
