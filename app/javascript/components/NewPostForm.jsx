@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import SubmitPostFormButton from "./SubmitPostFormButton"
+import { postRequest } from "../lib/request.js"
 
 class NewPostForm extends React.Component {
   constructor (props) {
@@ -31,29 +32,23 @@ class NewPostForm extends React.Component {
     });
   }
 
+  handleResponse (post, context) {
+    if(post.slug) {
+      document.location = "/p/" + post.slug;
+    } else {
+      context.renderErrorsOnForm(post);
+    };
+  }
+
   handleSubmit (event) {
     event.preventDefault();
     let body = JSON.stringify({authenticity_token: this.props.csrf_token, post: {title: this.state.title, content: this.state.content} })
     $("div[class='invalid-feedback']").hide();
     $("div[class='invalid-feedback']").text('');
-    fetch('http://localhost:3000/p', {
-        method: 'POST',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'X-CSRF-Token': this.props.csrf_token,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: body,
-        credentials: 'same-origin'
-      }).then((response) => {return response.json()})
-      .then((post) => {
-        if(post.slug) {
-          document.location = "/p/" + post.slug;
-        } else {
-          this.renderErrorsOnForm(post);
-        };
-      })
+    postRequest(
+      "http://localhost:3000/p", 
+      this.props.csrf_token, body, this.handleResponse, this
+    );
   }
 
   render () {
