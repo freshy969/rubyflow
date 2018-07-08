@@ -46,7 +46,7 @@ class NewPostForm extends React.Component {
     $("div[class='invalid-feedback']").hide();
     $("div[class='invalid-feedback']").text('');
     postRequest(
-      "http://localhost:3000/p", 
+      "p", 
       this.props.csrf_token, body, this.handleResponse, this
     );
   }

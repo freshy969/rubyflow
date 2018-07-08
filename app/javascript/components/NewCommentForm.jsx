@@ -43,7 +43,7 @@ class NewCommentForm extends React.Component {
     $("div[class='invalid-feedback']").text('');
 
     postRequest(
-      "http://localhost:3000/p/" + this.props.post_id + "/comments", 
+      "p/" + this.props.post_id + "/comments", 
       this.props.csrf_token, body, this.handleResponse, this
     );
   }

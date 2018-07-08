@@ -1,5 +1,5 @@
-export const postRequest = (url, csrf_token, params, callback, context) => {
-  fetch(url, {
+export const postRequest = (path, csrf_token, params, callback, context) => {
+  fetch(process.env.ROOT_URL + path, {
     method: 'POST',
     headers: {
       'X-Requested-With': 'XMLHttpRequest',
