@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
     else
       respond_to do |format|
         format.html { redirect_to(post_path(id: post.slug), gflash: { error: 'Please provide the comment body!' }) }
-        format.json { render json: { success: false, message: 'Please provide the comment body!' } }
+        format.json { render json: { success: false, message: 'Please provide the comment body!' }, status: :unprocessable_entity }
       end
     end
   end
